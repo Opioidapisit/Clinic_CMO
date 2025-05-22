@@ -2,127 +2,75 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>คลินิคยา มอ ออ</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e6f0ff, #ffffff);
-      margin: 0;
-      padding: 0;
-      color: #003366;
-    }
-
-    header {
-      background-color: #007bff;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .mascot {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 80px;
-      z-index: 10;
-    }
-
-    .container {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      text-decoration: none;
-      color: #003366;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: transform 0.2s, background-color 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      background-color: #e0f0ff;
-    }
-
-    .card i {
-      font-size: 36px;
-      margin-bottom: 10px;
-      color: #007bff;
-    }
-
-    .card span {
-      display: block;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        font-size: 20px;
-        padding: 15px;
-      }
-      .card i {
-        font-size: 28px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>คลินิคยา มอ ออ</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #003366;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
+        .mascot {
+            width: 150px;
+            margin-top: 1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            width: 90%;
+            max-width: 500px;
+            margin: 2rem 0;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
-  <img src="mascot.png" alt="มาสคอตร้าน" class="mascot">
-
-  <header>คลินิคยา มอ ออ</header>
-
-  <div class="container">
+    <header>คลินิคยา มอ ออ</header>
+    <img src="mascot.png" alt="Mascot" class="mascot" />
     <div class="grid">
-      <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSf1jZA55kIlbLlJR-jkgW_nZIzdP8vMH94fb8fKZi9tYTfkSg/viewform?usp=dialog" target="_blank">
-        <i class="fas fa-boxes"></i>
-        <span>แจ้งปรับสต็อก</span>
-      </a>
-
-      <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSd2y4_gftcpoTCOvefe0QHDqRlmgU00UrnU_krjY372MWRQBA/viewform" target="_blank">
-        <i class="fas fa-money-bill-wave"></i>
-        <span>แจ้งสินค้าราคาแพง</span>
-      </a>
-
-      <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSfgf1HrcGUFOrItfeSinLZzTJ93k0jOBDK7MEPRNqGJOAbc9Q/viewform?usp=header" target="_blank">
-        <i class="fas fa-calendar-times"></i>
-        <span>แจ้งลาหยุด</span>
-      </a>
-
-      <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSfJQtrH15o_UJ3D4eK2aPu8VG_cNWv9ptAnVkbexBdghLOYHg/viewform?usp=header" target="_blank">
-        <i class="fas fa-chart-line"></i>
-        <span>ประเมิน Performance</span>
-      </a>
-
-      <a class="card" href="https://docs.google.com/spreadsheets/d/1BOK2vKuZB86Mc6A5uV2INoReTrJpEdoHwoZ14d2OL1o/edit?usp=drive_link" target="_blank">
-        <i class="fas fa-prescription-bottle-alt"></i>
-        <span>จัดการ exp</span>
-      </a>
-
-      <a class="card" href="https://drive.google.com/file/d/1YPx7oIXMC279AzkecGujeAO9Zg5ypE9E/view?usp=drive_link" target="_blank">
-        <i class="fas fa-file-alt"></i>
-        <span>ระเบียบร้าน</span>
-      </a>
+        <div class="card"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf1jZA55kIlbLlJR-jkgW_nZIzdP8vMH94fb8fKZi9tYTfkSg/viewform?usp=dialog" target="_blank"><div class="icon"><i class="fas fa-pills"></i></div>แจ้งปรับสต็อก</a></div>
+        <div class="card"><a href="https://docs.google.com/forms/d/e/1FAIpQLSd2y4_gftcpoTCOvefe0QHDqRlmgU00UrnU_krjY372MWRQBA/viewform" target="_blank"><div class="icon"><i class="fas fa-dollar-sign"></i></div>แจ้งสินค้าราคาแพง</a></div>
+        <div class="card"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfgf1HrcGUFOrItfeSinLZzTJ93k0jOBDK7MEPRNqGJOAbc9Q/viewform?usp=header" target="_blank"><div class="icon"><i class="fas fa-calendar-times"></i></div>แจ้งลาหยุด</a></div>
+        <div class="card"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfJQtrH15o_UJ3D4eK2aPu8VG_cNWv9ptAnVkbexBdghLOYHg/viewform?usp=header" target="_blank"><div class="icon"><i class="fas fa-star"></i></div>ประเมิน Performance</a></div>
+        <div class="card"><a href="https://docs.google.com/spreadsheets/d/1BOK2vKuZB86Mc6A5uV2INoReTrJpEdoHwoZ14d2OL1o/edit?usp=drive_link" target="_blank"><div class="icon"><i class="fas fa-calendar-alt"></i></div>จัดการ exp</a></div>
+        <div class="card"><a href="https://drive.google.com/drive/folders/1cJbA47B0ISOyxis6c6UP9EjKM8fKXx9f?usp=drive_link" target="_blank"><div class="icon"><i class="fas fa-book"></i></div>ระเบียบร้าน</a></div>
+        <div class="card"><a href="https://drive.google.com/drive/folders/1CYGwaYsJXRhCqeBfcnf0i2T9oqC-KXlk?usp=drive_link" target="_blank"><div class="icon"><i class="fas fa-sliders-h"></i></div>ปรับ max-min</a></div>
+        <div class="card"><a href="https://drive.google.com/drive/folders/1U1vri3CVwOh486znMKXMrvORInFR8Htn?usp=drive_link" target="_blank"><div class="icon"><i class="fas fa-tags"></i></div>โปรโมชั่นสินค้า</a></div>
+        <div class="card"><a href="https://drive.google.com/drive/folders/1KjQFm1kP90yajzFE4JdgQ16YkC97U8im?usp=drive_link" target="_blank"><div class="icon"><i class="fas fa-prescription-bottle-alt"></i></div>ฉลากช่วย</a></div>
     </div>
-  </div>
-
 </body>
 </html>
