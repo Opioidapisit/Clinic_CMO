@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ร้านยาคลินิคยา มอ ออ - หน้าหลัก</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            /* สีหลักของแบรนด์ (น้ำเงินทางการแพทย์/น่าเชื่อถือ) */
+            --primary-color: #007bff; 
+            /* สีพื้นหลัง (ขาวนวล/สะอาด) */
+            --background-color: #f8f9fa;
+            /* สีข้อความหลัก */
+            --text-color-primary: #343a40;
+            /* สีข้อความรอง */
+            --text-color-secondary: #6c757d;
+            /* สีสำหรับกล่อง/การ์ด */
+            --card-background: #ffffff;
+            /* สีเงา */
+            --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color-primary);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .mascot-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1rem;
+            max-width: 800px;
+            margin: auto;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            width: 80px; 
+            flex-shrink: 0;
+        }
+
+        .speech-bubble {
+            background: var(--card-background);
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 15px 20px;
+            color: var(--text-color-primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 1rem;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .speech-bubble::before {
+            content: "";
+            position: absolute;
+            left: -10px; 
+            top: 50%;
+            transform: translateY(-50%);
+            border: 10px solid transparent;
+            border-right-color: var(--card-background);
+            filter: drop-shadow(-1px 0 1px rgba(0, 0, 0, 0.1));
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 900px; 
+            margin: 0rem auto 2rem auto;
+        }
+
+        .item {
+            background: var(--card-background);
+            padding: 1.5rem 1rem;
+            border-radius: 16px; 
+            box-shadow: var(--box-shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            border: 1px solid #e9ecef; 
+        }
+
+        .item:hover {
+            transform: translateY(-5px); 
+            box-shadow: var(--box-shadow-hover);
+            border-color: var(--primary-color); 
+        }
+
+        .item a {
+            color: var(--text-color-primary);
+            text-decoration: none;
+            display: block; 
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500; 
+        }
+
+        .item .emoji {
+            font-size: 2.8rem; 
+            margin-bottom: 0.5rem;
+            line-height: 1; 
+            transition: transform 0.3s ease;
+        }
+
+        .item:hover .emoji {
+            transform: scale(1.1); 
+        }
+        
+        .item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        .item small {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-color-secondary);
+            margin-top: 0.25rem;
+        }
+
+        footer {
+            background-color: #e9ecef;
+            color: var(--text-color-secondary);
+            padding: 1rem;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+        footer .credit {
+            position: absolute;
+            right: 1rem; 
+            bottom: 1rem;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 0.75rem;
+                padding: 0.75rem;
+            }
+            .item {
+                padding: 1rem 0.5rem;
+            }
+            header {
+                font-size: 1.5rem;
+                padding: 1rem;
+            }
+            /* ... (Responsive adjustments) ... */
+        }
+    </style>
+</head>
+<body>
+    <header>ร้านยาคลินิคยา มอ ออ</header>
+
+    <div class="mascot-container">
+        <img src="mascot.png" alt="Mascot" class="logo" />
+        <div class="speech-bubble">
+            ยิ้มแย้ม แจ่มใส ใจเย็น ฮึบๆครับพี่ๆ ✌️
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="item">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1jZA55kIlbLlJR-jkgW_nZIzdP8vMH94fb8fKZi9tYTfkSg/viewform?usp=dialog">
+                <span class="emoji">📦</span>
+                แจ้งปรับสต็อก
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd2y4_gftcpoTCOvefe0QHDqRlmgU00UrnU_krjY372MWRQBA/viewform">
+                <span class="emoji">💸</span>
+                แจ้งสินค้าราคาแพง
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfgf1HrcGUFOrItfeSinLZzTJ93k0jOBDK7MEPRNqGJOAbc9Q/viewform?usp=header">
+                <span class="emoji">🛌</span>
+                แจ้งลาหยุด
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfJQtrH15o_UJ3D4eK2aPu8VG_cNWv9ptAnVkbexBdghLOYHg/viewform?usp=header">
+                <span class="emoji">📈</span>
+                ประเมิน Performance
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/spreadsheets/d/1BOK2vKuZB86Mc6A5uV2INoReTrJpEdoHwoZ14d2OL1o/edit?usp=drive_link">
+                <span class="emoji">📋</span>
+                จัดการ exp
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1cJbA47B0ISOyxis6c6UP9EjKM8fKXx9f?usp=drive_link">
+                <span class="emoji">📘</span>
+                ระเบียบร้าน
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1CYGwaYsJXRhCqeBfcnf0i2T9oqC-KXlk?usp=drive_link">
+                <span class="emoji">⚙️</span>
+                ปรับ max-min
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1U1vri3CVwOh486znMKXMrvORInFR8Htn?usp=drive_link">
+                <span class="emoji">🏷️</span>
+                โปรโมชั่นสินค้า
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1KjQFm1kP90yajzFE4JdgQ16YkC97U8im?usp=drive_link">
+                <span class="emoji">🔖</span>
+                ฉลากช่วย
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1pVlOTdHJZLaK0S5m1fWPaf7q92RRikn6?usp=drive_link">
+                <span class="emoji">🩺</span>
+                อุปกรณ์การแพทย์
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1JD35lir6btJUbxFEFaxDiO9gw5WQi97C?usp=drive_link">
+                <span class="emoji">💊</span>
+                การจ่ายยา CMO
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://smartdrugstore.info/pdc/index.php">
+                <span class="emoji">👶🏻</span>
+                คำนวณยาเด็ก
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://nutrirodcal.com/index.php/en/index/list">
+                <span class="emoji">🥛</span>
+                คำนวณนมการแพทย์
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/spreadsheets/d/19d4A3imGRxPTaZ8zfMDhJl0a02kwho-w3YJP6Y9prpQ/edit?usp=sharing">
+                <span class="emoji">🗓️</span>
+                ตารางงาน
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1WL8fqzACN2TeNkHzwhoxHBHb14vCC46t?usp=drive_link">
+                <span class="emoji">🖥️</span>
+                Drive CMO
+                <small>(เอกสารทั้งหมดที่ใช้ในร้าน)</small>
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSctx8R_-vVnln0vNnMu06liyygB-nzW5KChKKrsLGUDyLUfFg/viewform?usp=dialog">
+                <span class="emoji">😵</span>
+                รายงานความผิดพลาด
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://docs.google.com/spreadsheets/d/1ZQ4dZFagUD7MtFjUlvJSw-f2qi8yPb52dtGAjbn12Qo/edit?gid=1247131719#gid=1247131719">
+                <span class="emoji">📞</span>
+                ข้อมูลติดต่อพนักงาน
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/1xZkp84StUsVJuJXiYnymIH1tybiWR59v?usp=drive_link">
+                <img src="30B.webp" alt="icon" style="width:40px;height:40px;">
+                โครงการ CI
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://drive.google.com/drive/folders/10VJqQZUb5Psf1qh6WwQSwQuV-68Z8y21?usp=sharing">
+                <span class="emoji">🎬</span>
+                วิดีโอสอน product การตลาด การขาย
+            </a>
+        </div>
+        <div class="item">
+            <a href="https://opioidapisit.github.io/E-leraningCMO/">
+                <span class="emoji">🎓</span>
+                ระบบเรียนรู้ด้วยตัวเองประจำเดือน
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        Website นี้ถูกจัดทำขึ้นเพื่อใช้ภายในองค์กรเท่านั้น<br>
+        <span id="datetime">อัปเดตล่าสุด: --/--/---- --:--:--</span>
+        <div class="credit">Develop by Opioid.Apisit</div>
+    </footer>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            };
+            const formatted = now.toLocaleString('th-TH', options);
+            document.getElementById("datetime").innerText = `อัปเดตล่าสุด: ${formatted}`;
+        }
+
+        updateDateTime();
+        setInterval(updateDateTime, 1000); 
+    </script>
+</body>
+</html>
