@@ -6,7 +6,7 @@
     <title>CMO Portal - ร้านยาคลินิคยา มอ ออ</title>
     <!-- Font: Kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <!-- Icon Library (Phosphor Icons for modern look) -->
+    <!-- Icon Library (Phosphor Icons) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
@@ -161,13 +161,11 @@
             gap: 12px;
         }
         
-        /* Mobile specific grid override for standard 2-column feel or dense 3-column */
         @media (max-width: 600px) {
             .grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 items per row on mobile for icon style */
+                grid-template-columns: repeat(3, 1fr); 
                 gap: 10px;
             }
-            /* If items are too wide, switch to 2 */
             .grid.wide-cards {
                  grid-template-columns: repeat(2, 1fr);
             }
@@ -190,6 +188,7 @@
             border: 1px solid transparent;
             position: relative;
             height: 100%;
+            cursor: pointer;
         }
 
         .card:hover {
@@ -198,7 +197,6 @@
             border-color: var(--primary-light);
         }
 
-        /* Icon Container Circle */
         .icon-box {
             width: 50px;
             height: 50px;
@@ -207,7 +205,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem; /* Emoji size */
+            font-size: 1.8rem;
             margin-bottom: 10px;
             transition: transform 0.3s;
         }
@@ -253,6 +251,7 @@
             color: var(--text-main);
             border-left: 5px solid var(--primary);
             transition: transform 0.2s;
+            cursor: pointer;
         }
 
         .card-feature:hover {
@@ -306,7 +305,6 @@
             font-size: 0.75rem;
         }
 
-        /* --- Utility Classes for custom images --- */
         .img-icon {
             width: 100%;
             height: 100%;
@@ -314,9 +312,99 @@
             border-radius: 50%;
         }
 
-        /* Hide elements when searching */
         .hidden {
             display: none !important;
+        }
+
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .modal-header p {
+            margin: 0 0 20px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 12px 15px;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .modal-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            background: transparent;
+            border: none;
+            color: #999;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
     </style>
@@ -347,7 +435,6 @@
 
         <!-- Mascot Message -->
         <div class="mascot-banner">
-            <!-- ภาพ mascot (ไม่มี fallback เพื่อให้แน่ใจว่าใช้ไฟล์ชื่อนี้เท่านั้นตามที่ user แจ้ง) -->
             <img src="mascot.png" alt="Mascot" class="mascot-img">
             <div class="mascot-text">
                 <b>น้อง มอ มอ บอกว่า:</b><br>
@@ -370,7 +457,7 @@
                 </div>
             </a>
 
-            <!-- Moved Item: Case Report (Now at Highlight Zone) -->
+            <!-- Case Report -->
             <a href="https://opioidapisit.github.io/CMO-Case.report/" class="card-feature filter-item" data-name="case report ส่งต่อผู้ป่วย">
                 <div class="feature-icon">🚑</div>
                 <div class="feature-content">
@@ -379,7 +466,7 @@
                 </div>
             </a>
 
-            <!-- New Item 2 -->
+            <!-- Self Learning -->
             <a href="https://opioidapisit.github.io/E-leraningCMO/" class="card-feature filter-item" data-name="ระบบเรียนรู้ด้วยตัวเอง self learning">
                 <div class="feature-icon">📚</div>
                 <div class="feature-content">
@@ -388,14 +475,14 @@
                 </div>
             </a>
 
-            <!-- New Item 3 -->
-            <a href="#" class="card-feature filter-item" data-name="KPI สมรรถนะ performance">
+            <!-- KPI & Check-list (Updated) -->
+            <div onclick="openKPIModal()" class="card-feature filter-item" data-name="KPI สมรรถนะ performance checklist">
                 <div class="feature-icon">🥇</div>
                 <div class="feature-content">
-                    <h3>KPI และ สมรรถนะ</h3>
-                    <p style="color: var(--accent);">Coming Soon</p>
+                    <h3>ประเมิน KPI & Checklist</h3>
+                    <p style="color: var(--primary);">คลิกเพื่อเลือกรายการ</p>
                 </div>
-            </a>
+            </div>
         </div>
 
         <!-- Zone: Main Menu -->
@@ -404,7 +491,7 @@
         </div>
 
         <div class="grid wide-cards">
-            <!-- รายการเดิม (ลบ Case Report ออกจากตรงนี้แล้ว) -->
+            <!-- เมนูทั่วไป -->
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSf1jZA55kIlbLlJR-jkgW_nZIzdP8vMH94fb8fKZi9tYTfkSg/viewform?usp=dialog" class="card filter-item" data-name="แจ้งปรับสต็อก stock">
                 <div class="icon-box">📦</div>
                 <span class="card-label">แจ้งปรับสต็อก</span>
@@ -420,10 +507,7 @@
                 <span class="card-label">แจ้งลาหยุด</span>
             </a>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfJQtrH15o_UJ3D4eK2aPu8VG_cNWv9ptAnVkbexBdghLOYHg/viewform?usp=header" class="card filter-item" data-name="ประเมิน Performance">
-                <div class="icon-box">📈</div>
-                <span class="card-label">ประเมิน Performance</span>
-            </a>
+            <!-- ลบ: ประเมิน Performance ออกจากตรงนี้แล้ว -->
 
             <a href="https://docs.google.com/spreadsheets/d/1BOK2vKuZB86Mc6A5uV2INoReTrJpEdoHwoZ14d2OL1o/edit?usp=drive_link" class="card filter-item" data-name="จัดการ exp expire">
                 <div class="icon-box">📋</div>
@@ -504,7 +588,6 @@
             </a>
         </div>
         
-        <!-- Message when search not found -->
         <div id="noResults" style="text-align: center; margin-top: 30px; display: none; color: #aaa;">
             <i class="ph ph-magnifying-glass" style="font-size: 3rem; margin-bottom: 10px;"></i><br>
             ไม่พบเมนูที่ค้นหา
@@ -516,6 +599,36 @@
         <div class="credit">Developed by Opioid.Apisit</div>
         <div style="margin-top:5px; opacity: 0.6;">© 2024 Clinic Ya Mor Or</div>
     </footer>
+
+    <!-- MODAL POPUP -->
+    <div class="modal-overlay" id="kpiModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>เลือกรายการ</h2>
+                <p>กรุณาเลือกหัวข้อที่ต้องการดำเนินการ</p>
+            </div>
+            <div class="modal-options">
+                <!-- ตัวเลือกที่ 1 -->
+                <button class="modal-btn" onclick="checkPass('KPIcmo', 'https://script.google.com/macros/s/AKfycbwDF5s8rmIC8c8-oX5xvH9mCarwAiYtXrMS4OkhsSNNsLhx5MN9BOAT0WAUItjsHpWa/exec')">
+                    <i class="ph-bold ph-chart-line-up" style="font-size: 1.2rem; color: #0066cc;"></i>
+                    ประเมิน KPI พนักงาน
+                </button>
+                
+                <!-- ตัวเลือกที่ 2 -->
+                <button class="modal-btn" onclick="checkPass('MBcmo', 'https://script.google.com/macros/s/AKfycbwlx7jttagS1UZ7bNZOzQONSc09EmVZI6cDO47wkQawBb-jZK7tdSYaq5GW02WN-0uk/exec')">
+                    <i class="ph-bold ph-check-square-offset" style="font-size: 1.2rem; color: #0066cc;"></i>
+                    Mobile Check-list
+                </button>
+                
+                <!-- ตัวเลือกที่ 3 -->
+                <a href="https://drive.google.com/drive/folders/1GyEZAttZc8ctXOqhiGu-v_wzjC3GQ-9F?usp=drive_link" class="modal-btn" target="_blank">
+                    <i class="ph-bold ph-file-text" style="font-size: 1.2rem; color: #0066cc;"></i>
+                    เอกสารเกณฑ์การประเมิน
+                </a>
+            </div>
+            <button class="close-btn" onclick="closeKPIModal()">ยกเลิก</button>
+        </div>
+    </div>
 
     <script>
         // Real-time Clock
@@ -530,7 +643,7 @@
         setInterval(updateTime, 1000);
         updateTime();
 
-        // Search Filter Logic
+        // Search Filter
         function filterMenu() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
@@ -549,15 +662,41 @@
                     item.classList.add('hidden');
                 }
             });
-
-            // Toggle "No Results" message
             document.getElementById('noResults').style.display = hasResults ? 'none' : 'block';
-
-            // Optional: Hide section titles if filtering
             if (filter.length > 0) {
                 sectionTitles.forEach(title => title.classList.add('hidden'));
             } else {
                 sectionTitles.forEach(title => title.classList.remove('hidden'));
+            }
+        }
+
+        // Modal Logic
+        function openKPIModal() {
+            const modal = document.getElementById('kpiModal');
+            modal.classList.add('active');
+        }
+
+        function closeKPIModal() {
+            const modal = document.getElementById('kpiModal');
+            modal.classList.remove('active');
+        }
+
+        // Password Check Logic
+        function checkPass(correctPass, targetUrl) {
+            let userPass = prompt("🔒 กรุณากรอกรหัสผ่านเพื่อเข้าใช้งาน:");
+            
+            if (userPass === correctPass) {
+                window.location.href = targetUrl;
+            } else if (userPass !== null) { // ถ้า user กด cancel จะไม่แจ้งเตือน
+                alert("❌ รหัสผ่านไม่ถูกต้อง");
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('kpiModal');
+            if (event.target == modal) {
+                closeKPIModal();
             }
         }
     </script>
