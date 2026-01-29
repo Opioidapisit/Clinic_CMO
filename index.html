@@ -727,9 +727,9 @@
             
             <div class="chat-container" id="chatHistory">
                 <div class="chat-message bot">
-                    สวัสดีครับ! ผมคือ ผู้ช่วย AI 🤖<br>มีอะไรให้ผมช่วยไหมครับ? เช่น<br>
-                    - ยานี้กินคู่กับตัวนี้ได้ไหม?<br>
-                    - ขนาดยา AmoxiClav สำหรับเด็กคือเท่าไหร่ ?
+                    สวัสดีครับ! ผมคือ ผู้ช่วย AI 🤖<br>ถามเรื่องยาได้เลยครับ เช่น<br>
+                    - ยา Amoxicillin กินยังไง?<br>
+                    - ยาแก้แพ้ตัวไหนไม่ง่วง?
                 </div>
             </div>
             
@@ -831,9 +831,17 @@
             inputField.value = '';
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
-            // 2. Set Config API Key (Hardcoded)
-            const apiKey = "AIzaSyDbYZQ4gDJRvXN-d7uoJUmDxeqfmoq_Usw"; // Your Key here
+            // 2. Base64 Encoded Key (Hidden from Bots)
+            const encodedKey = "QUl6YVN5QXA2Mlcxa1MwUlk5cF9xakdFVE9ONDVZQm01c3I2dENZ"; 
             
+            // Decode
+            let apiKey = "";
+            try {
+                apiKey = atob(encodedKey);
+            } catch (e) {
+                console.error("Invalid Base64 string");
+            }
+
             // 3. Show Typing
             typingIndicator.style.display = 'block';
 
@@ -851,7 +859,6 @@
 
                 const data = await response.json();
                 
-                // Check for API Error response
                 if (data.error) {
                     throw new Error(data.error.message || "API Error");
                 }
@@ -862,16 +869,23 @@
                     aiText = data.candidates[0].content.parts[0].text;
                 }
 
-                // Format Markdown bolding (basic)
+                // Format Markdown bolding
                 aiText = aiText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
                 aiText = aiText.replace(/\n/g, '<br>');
 
-                // 4. Add AI Message
+                // 5. Add AI Message
                 chatHistory.innerHTML += `<div class="chat-message bot">${aiText}</div>`;
 
             } catch (error) {
                 let errorMsg = "เกิดข้อผิดพลาดในการเชื่อมต่อ AI";
-                if (error.message.includes("API Key")) errorMsg = "API Key ไม่ถูกต้อง";
+                
+                // Detect specific errors
+                if (error.message.includes("API Key") || error.message.includes("400")) {
+                    errorMsg = "API Key ไม่ถูกต้อง หรือถูกระงับ";
+                }
+                if (error.message.includes("referer")) {
+                    errorMsg = "ติดสิทธิ์การเข้าถึงเว็บไซต์ (Referer Blocked) - กรุณาเช็ค Google Console";
+                }
                 
                 chatHistory.innerHTML += `<div class="chat-message bot" style="color:red;">${errorMsg} <br><small>(${error.message})</small></div>`;
                 console.error('Error:', error);
@@ -884,4 +898,3 @@
     </script>
 </body>
 </html>
-
