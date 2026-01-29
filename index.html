@@ -14,6 +14,7 @@
             --primary: #0066cc;        /* สีน้ำเงินการแพทย์ */
             --primary-light: #e6f0fa;  /* สีพื้นหลัง icon แบบอ่อน */
             --accent: #ff4757;         /* สีแจ้งเตือน/New */
+            --ai-color: #8e44ad;       /* สีประจำตัว AI */
             --bg-body: #f4f6f8;        /* สีพื้นหลังเว็บ */
             --bg-card: #ffffff;
             --text-main: #1f2937;
@@ -258,6 +259,11 @@
             transform: scale(1.02);
         }
 
+        .card-feature.ai-card {
+            border-left: 5px solid var(--ai-color);
+            background: linear-gradient(145deg, #ffffff, #fbf7ff);
+        }
+        
         .feature-icon {
             font-size: 2rem;
             margin-right: 15px;
@@ -349,6 +355,9 @@
             text-align: center;
             transform: scale(0.9);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
         }
 
         .modal-overlay.active .modal-content {
@@ -407,6 +416,79 @@
             text-decoration: underline;
         }
 
+        /* --- Chat UI Styles --- */
+        .chat-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            text-align: left;
+            min-height: 300px;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-message.user {
+            background-color: var(--primary);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-message.bot {
+            background-color: #e9ecef;
+            color: var(--text-main);
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .chat-send-btn {
+            background: var(--ai-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .typing-indicator {
+            font-size: 0.8rem;
+            color: #aaa;
+            font-style: italic;
+            display: none;
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -438,7 +520,7 @@
             <img src="mascot.png" alt="Mascot" class="mascot-img">
             <div class="mascot-text">
                 <b>น้อง มอ มอ บอกว่า:</b><br>
-                "อย่าลืมเช็ค <strong>กิจกรรมประจำเดือน</strong> ด้วยนะครับ! 🩺✨"
+                "มีฟีเจอร์ใหม่ <strong>ผู้ช่วย AI อัจฉริยะ</strong> ✨ ลองใช้ดูนะครับ!"
             </div>
         </div>
 
@@ -448,8 +530,18 @@
         </div>
 
         <div class="highlight-grid" id="highlightZone">
+            
+            <!-- NEW: AI ASSISTANT CARD -->
+            <div onclick="openAIModal()" class="card-feature ai-card filter-item" data-name="AI ผู้ช่วย เภสัช chatbot gemini">
+                <div class="feature-icon">✨</div>
+                <div class="feature-content">
+                    <h3 style="color: var(--ai-color);">ผู้ช่วย AI อัจฉริยะ</h3>
+                    <p>หาข้อมูลพื้นฐานอย่างรวดเร็ว</p>
+                </div>
+            </div>
+
             <!-- New Item 1 -->
-            <a href="https://docs.google.com/spreadsheets/d/1jWOPXtfK4_UxuKq0A_yxJRFsv2-vgZp-6kYYx3Sx5X8/edit?gid=0#gid=0" class="card-feature filter-item" data-name="กิจกรรมประจำเดือน activity">
+            <a href="https://docs.google.com/presentation/d/e/2PACX-1vTS4n8jFCPVgiSjKCGAJBzYy9AWkKt0Rj9fXAoYHUR8b7I22_WfwTxOsIKTgV3aaz4nv8p75BtwIICK/pub?start=true&loop=true&delayms=3000&slide=id.p" class="card-feature filter-item" data-name="กิจกรรมประจำเดือน activity">
                 <div class="feature-icon">🎉</div>
                 <div class="feature-content">
                     <h3>กิจกรรมประจำเดือน</h3>
@@ -466,6 +558,15 @@
                 </div>
             </a>
 
+            <!-- KPI & Check-list -->
+            <div onclick="openKPIModal()" class="card-feature filter-item" data-name="KPI สมรรถนะ performance checklist">
+                <div class="feature-icon">🥇</div>
+                <div class="feature-content">
+                    <h3>ประเมิน KPI & Checklist</h3>
+                    <p style="color: var(--primary);">คลิกเพื่อเลือกรายการ</p>
+                </div>
+            </div>
+            
             <!-- Self Learning -->
             <a href="https://opioidapisit.github.io/E-leraningCMO/" class="card-feature filter-item" data-name="ระบบเรียนรู้ด้วยตัวเอง self learning">
                 <div class="feature-icon">📚</div>
@@ -475,14 +576,6 @@
                 </div>
             </a>
 
-            <!-- KPI & Check-list (Updated) -->
-            <div onclick="openKPIModal()" class="card-feature filter-item" data-name="KPI สมรรถนะ performance checklist">
-                <div class="feature-icon">🥇</div>
-                <div class="feature-content">
-                    <h3>ประเมิน KPI & Checklist</h3>
-                    <p style="color: var(--primary);">คลิกเพื่อเลือกรายการ</p>
-                </div>
-            </div>
         </div>
 
         <!-- Zone: Main Menu -->
@@ -504,10 +597,8 @@
 
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfgf1HrcGUFOrItfeSinLZzTJ93k0jOBDK7MEPRNqGJOAbc9Q/viewform?usp=header" class="card filter-item" data-name="แจ้งลาหยุด leave">
                 <div class="icon-box">🛌</div>
-                <span class="card-label">KEY ลาหยุด</span>
+                <span class="card-label">แจ้งลาหยุด</span>
             </a>
-
-            <!-- ลบ: ประเมิน Performance ออกจากตรงนี้แล้ว -->
 
             <a href="https://docs.google.com/spreadsheets/d/1BOK2vKuZB86Mc6A5uV2INoReTrJpEdoHwoZ14d2OL1o/edit?usp=drive_link" class="card filter-item" data-name="จัดการ exp expire">
                 <div class="icon-box">📋</div>
@@ -522,7 +613,7 @@
             <a href="https://drive.google.com/drive/folders/1CYGwaYsJXRhCqeBfcnf0i2T9oqC-KXlk?usp=drive_link" class="card filter-item" data-name="ปรับ max-min">
                 <div class="icon-box">🚚</div>
                 <span class="card-label">จัดการคลัง</span>
-                <span class="card-sub">Max-min,ใกล้ Exp.</span>
+                <span class="card-sub">min-max , Dead stock</span>
             </a>
 
             <a href="https://drive.google.com/drive/folders/1U1vri3CVwOh486znMKXMrvORInFR8Htn?usp=drive_link" class="card filter-item" data-name="โปรโมชั่นสินค้า promotion">
@@ -601,7 +692,7 @@
         <div style="margin-top:5px; opacity: 0.6;">© 2024 Clinic Ya Mor Or</div>
     </footer>
 
-    <!-- MODAL POPUP -->
+    <!-- MODAL POPUP: KPI -->
     <div class="modal-overlay" id="kpiModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -609,25 +700,49 @@
                 <p>กรุณาเลือกหัวข้อที่ต้องการดำเนินการ</p>
             </div>
             <div class="modal-options">
-                <!-- ตัวเลือกที่ 1 -->
                 <button class="modal-btn" onclick="checkPass('KPIcmo', 'https://script.google.com/macros/s/AKfycbwDF5s8rmIC8c8-oX5xvH9mCarwAiYtXrMS4OkhsSNNsLhx5MN9BOAT0WAUItjsHpWa/exec')">
                     <i class="ph-bold ph-chart-line-up" style="font-size: 1.2rem; color: #0066cc;"></i>
                     ประเมิน KPI พนักงาน
                 </button>
-                
-                <!-- ตัวเลือกที่ 2 -->
                 <button class="modal-btn" onclick="checkPass('MBcmo', 'https://script.google.com/macros/s/AKfycbwlx7jttagS1UZ7bNZOzQONSc09EmVZI6cDO47wkQawBb-jZK7tdSYaq5GW02WN-0uk/exec')">
                     <i class="ph-bold ph-check-square-offset" style="font-size: 1.2rem; color: #0066cc;"></i>
                     Mobile Check-list
                 </button>
-                
-                <!-- ตัวเลือกที่ 3 -->
                 <a href="https://drive.google.com/drive/folders/1GyEZAttZc8ctXOqhiGu-v_wzjC3GQ-9F?usp=drive_link" class="modal-btn" target="_blank">
                     <i class="ph-bold ph-file-text" style="font-size: 1.2rem; color: #0066cc;"></i>
                     เอกสารเกณฑ์การประเมิน
                 </a>
             </div>
             <button class="close-btn" onclick="closeKPIModal()">ยกเลิก</button>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP: AI CHAT -->
+    <div class="modal-overlay" id="aiModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 style="color: var(--ai-color);">✨ ผู้ช่วย AI อัจฉริยะ</h2>
+                <p>หาข้อมูลเบื้องต้นอย่างรวดเร็ว</p>
+            </div>
+            
+            <div class="chat-container" id="chatHistory">
+                <div class="chat-message bot">
+                    สวัสดีครับ! ผมคือ ผู้ช่วย AI 🤖<br>มีอะไรให้ผมช่วยไหมครับ? เช่น<br>
+                    - ยานี้กินคู่กับตัวนี้ได้ไหม?<br>
+                    - ขนาดยา AmoxiClav สำหรับเด็กคือเท่าไหร่ ?
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">AI กำลังพิมพ์...</div>
+
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="พิมพ์คำถามที่นี่..." onkeypress="handleEnter(event)">
+                <button class="chat-send-btn" onclick="sendMessage()">
+                    <i class="ph-fill ph-paper-plane-right"></i>
+                </button>
+            </div>
+
+            <button class="close-btn" onclick="closeAIModal()">ปิดหน้าต่าง</button>
         </div>
     </div>
 
@@ -672,37 +787,121 @@
         }
 
         // Modal Logic
-        function openKPIModal() {
-            const modal = document.getElementById('kpiModal');
-            modal.classList.add('active');
+        function openKPIModal() { document.getElementById('kpiModal').classList.add('active'); }
+        function closeKPIModal() { document.getElementById('kpiModal').classList.remove('active'); }
+        
+        function openAIModal() { 
+            document.getElementById('aiModal').classList.add('active'); 
+            // Focus input when opened
+            setTimeout(() => document.getElementById('chatInput').focus(), 300);
         }
-
-        function closeKPIModal() {
-            const modal = document.getElementById('kpiModal');
-            modal.classList.remove('active');
-        }
+        function closeAIModal() { document.getElementById('aiModal').classList.remove('active'); }
 
         // Password Check Logic
         function checkPass(correctPass, targetUrl) {
             let userPass = prompt("🔒 กรุณากรอกรหัสผ่านเพื่อเข้าใช้งาน:");
-            
             if (userPass === correctPass) {
                 window.location.href = targetUrl;
-            } else if (userPass !== null) { // ถ้า user กด cancel จะไม่แจ้งเตือน
+            } else if (userPass !== null) {
                 alert("❌ รหัสผ่านไม่ถูกต้อง");
             }
         }
 
         // Close modal when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('kpiModal');
-            if (event.target == modal) {
-                closeKPIModal();
-            }
+            if (event.target == document.getElementById('kpiModal')) closeKPIModal();
+            if (event.target == document.getElementById('aiModal')) closeAIModal();
         }
+
+        // --- AI Chat Logic ---
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        async function sendMessage() {
+            const inputField = document.getElementById('chatInput');
+            const userText = inputField.value.trim();
+            const chatHistory = document.getElementById('chatHistory');
+            const typingIndicator = document.getElementById('typingIndicator');
+
+            if (!userText) return;
+
+            // 1. Add User Message
+            chatHistory.innerHTML += `<div class="chat-message user">${userText}</div>`;
+            inputField.value = '';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // 2. Check API Key (Environment or Session)
+            const apiKey = ""; // API Key will be injected by environment
+            let finalKey = apiKey;
+
+            // If no env key, check session or prompt user
+            if (!finalKey) {
+                if (!sessionStorage.getItem("gemini_key")) {
+                    const inputKey = prompt("⚠️ กรุณากรอก Google Gemini API Key เพื่อเริ่มใช้งาน AI:\n(รับ Key ฟรีได้ที่ aistudio.google.com)");
+                    if (inputKey) sessionStorage.setItem("gemini_key", inputKey);
+                }
+                finalKey = sessionStorage.getItem("gemini_key");
+            }
+
+            if (!finalKey) {
+                chatHistory.innerHTML += `<div class="chat-message bot" style="color:#d9534f;">ขออภัย คุณต้องใส่ API Key ก่อนใช้งานครับ (กด F5 เพื่อลองใหม่)</div>`;
+                typingIndicator.style.display = 'none';
+                return;
+            }
+
+            // 3. Show Typing
+            typingIndicator.style.display = 'block';
+
+            try {
+                // Call Gemini API
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${finalKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: "Context: You are a helpful AI Pharmacist Assistant for 'ร้านยาคลินิคยา มอ ออ'. You speak Thai. Answer concisely.\n\nUser Question: " + userText }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                // Check for API Error response
+                if (data.error) {
+                    throw new Error(data.error.message || "API Error");
+                }
+
+                let aiText = "ขออภัย ระบบขัดข้องชั่วคราว (ไม่พบคำตอบ)";
+
+                if (data.candidates && data.candidates[0].content) {
+                    aiText = data.candidates[0].content.parts[0].text;
+                }
+
+                // Format Markdown bolding (basic)
+                aiText = aiText.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+                aiText = aiText.replace(/\n/g, '<br>');
+
+                // 4. Add AI Message
+                chatHistory.innerHTML += `<div class="chat-message bot">${aiText}</div>`;
+
+            } catch (error) {
+                let errorMsg = "เกิดข้อผิดพลาดในการเชื่อมต่อ AI";
+                if (error.message.includes("API Key")) errorMsg = "API Key ไม่ถูกต้อง";
+                
+                chatHistory.innerHTML += `<div class="chat-message bot" style="color:red;">${errorMsg} <br><small>(${error.message})</small></div>`;
+                console.error('Error:', error);
+                
+                // Clear bad key if likely invalid
+                if (error.message.includes("400") || error.message.includes("Key")) {
+                    sessionStorage.removeItem("gemini_key");
+                }
+            }
+
+            typingIndicator.style.display = 'none';
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
     </script>
 </body>
 </html>
-
-
-
